@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="University of Perpetual Help-GMA Tasker" />
+	<meta name="keywords" content="web-based task manager,tasker,task manager,web tasker" />
+	<meta name="author" content="Rholex Dizon, RJ Jaictin, Aaron Patungcal" />
+    <title>{% block title %}{% endblock title %}</title>
+    {% block styles %}{% endblock styles %}
+</head>
+<body>
+    {% csrf_token %}
+    {% block content %}{% endblock content %}
+    <footer>
+		<p>
+            Web-based task manager - <i>Tasker</i>, Copyright &copy; 2021
+        </p>
+	</footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    {% block scripts %}{% endblock scripts %}
+</body>
+</html>

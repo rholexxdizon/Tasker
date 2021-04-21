@@ -1,0 +1,27 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/header.css' %}">
+
+<div class="contain">
+    <img src="{% static 'images/logo.png' %}" alt="School Logo" width="70px" height="100px" align="left" style="margin:10px 25px">
+
+    <div class="about">
+        <div class="uni">
+        <h1 style="text-align: center; margin-right:100px" ;><strong>UNIVERSITY OF PERPETUAL HELP SYSTEM GMA</h1>
+        </strong>
+        </div>
+
+        <p style="text-align: center ; margin-right: 100px;">San Gabriel, General Mariano Alvarez (GMA), Cavite<br>
+        Contact No. (0909) 809 - 4200 • (046) 460 - 4086 • (02)<br>email: guidance@gma.uphsl.edu.ph/
+        marketing@gma.uphsl.edu.ph<br> url: www.uphsl.edu.ph
+        </p>
+
+    </div>
+    </div>
+
+    <div class="tasker"><b>Tasker</b></div>
+
+    <div class="navbar">
+    <a href="{% url 'account_logout' %}">LOG OUT</a>
+    <a href="/">VIEW DASHBOARD</a>
+</div>

@@ -1,0 +1,43 @@
+.container {
+    padding: 0.5rem;
+    margin: 0.25rem;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.task{
+    background-color: hsl(234, 60%, 50%);
+    border-radius: 0.2rem;
+    transition: 200ms;
+    color: white;
+}
+
+.task:hover{
+    background-color: hsl(234, 60%, 60%);
+}
+
+#task-header {
+    display: flex;
+    align-items: center;
+}
+
+#add-task-btn {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.animated {
+    -webkit-transition: bottom 2s ease;
+    -moz-transition: bottom 2s ease;
+    -o-transition: bottom 2s ease;
+    -ms-transition: bottom 2s ease;
+    transition: bottom 2s ease;
+}

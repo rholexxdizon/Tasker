@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Tasker Dashboard{% endblock title %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+{% endblock styles %}
+{% block content %}
+
+{% include 'header.html' %}
+
+<div class="container">
+    <div class="container" id='task-header'>
+        <h1>Tasks</h1>
+        <a href="#" id="add-task-btn">
+            <p>add new</p>
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            </span>
+        </a>
+    </div>
+    
+
+    {% for task in tasks %}
+    
+    <div class="animate__animated animate__fadeInUp container task" onclick="taskClick({{ task.id }})">
+        <h4>{{ task }}</h4>
+        <p>{{ task.created_on }}</p>
+        <div id="{{ task.id }}" class="hidden">
+            <div class="animated">
+                <p>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Atque corrupti aspernatur quod culpa veritatis nemo alias quasi harum, quae,
+                </p>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+
+{% endblock content %}
+{% block scripts %}
+    <script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock scripts %}

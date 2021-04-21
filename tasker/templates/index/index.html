@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Welcome to Tasker {% endblock title %}
+
+{% block styles %}
+
+<link rel="stylesheet" href="{% static 'css/index.css' %}" />
+
+{% endblock styles %}
+{% block content %}
+
+{% include 'index/index-header.html' %}
+
+<section id="showcase">
+    <div class="container">
+        <h1><i>Tasker</i> is a website created to help groups<br>/teams finish tasks/projects on time.</h1>
+        <p>Lorem ipsum dolor sit amet,<br>
+            consectetur adipiscing elit.<br>
+            Cras scelerisque, mauris sed fringilla cursus, mi ex <br>porta libero,
+            interdum sodales lacus dolor sed neque.
+        </p>
+    </div>
+</section>
+
+{% endblock content %}
+{% block scripts %}
+
+
+{% endblock scripts %}
