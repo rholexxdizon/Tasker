@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Task {{task}}{% endblock title %}
+{% block styles %}
+
+<link rel="stylesheet" href="{% static 'css/task.css' %}">
+<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+{% endblock styles %}
+{% block content %}
+{% include 'header.html' %}
+
+<div class="cont">
+    <form method="POST" class="cont">
+        {% csrf_token %}
+        <h4>
+            Title: 
+            <input type="text" placeholder="{{ task.name }}" id="name" name="name" value="{{ task.name }}">
+        </h4>
+        <p>Created on: {{ task.created_on }}</p>
+        <p>Due on: 
+            <span id="due-label">{{ task.due_on }}</span>
+            <input type="date" name="due" id="due">
+        </p>
+        <p>
+            Description: 
+            <textarea type="text" name="desc">{{ task.description }}</textarea>
+        </p>
+        <p>Checklist:</p>
+        <div id="goal-container">
+            <input type="checkbox" name="a" id="">
+            <label for="a">goal 1</label>
+            {% comment %} insert for loop of goals here {% endcomment %}
+            <br/>
+            <input type="button" value="Add goal">
+        </div>
+        <input type="button" value="Revert Changes" onClick="location.reload(true);">
+        <input type="button" value="Delete task">
+        <input type="submit" value="Save">
+    </form>
+</div>
+
+{% endblock content %}
+{% block scripts %}
+<script src="{% static 'js/task.js' %}"></script>
+{% endblock scripts %}

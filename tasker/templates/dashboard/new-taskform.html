@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Add Task{% endblock title %}
+{% block styles %}
+
+<link rel="stylesheet" href="{% static 'css/new-taskform.css' %}">
+
+{% endblock styles %}
+{% block content %}
+{% include 'header.html' %}
+
+<div id="form-container">
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <p class="error">{{ error }}</p>
+
+        <div class="input-container">
+            <label for="name">Task Name</label>
+            <input type="text" id="name" name="name" autocomplete="false" placeholder="Task title" required>
+        </div>
+        <div class="input-container">
+            <label for="desc">Description</label>
+            <input type="text" id="desc" name="desc" autocomplete="false" placeholder="description">
+        </div>
+
+        <div class="input-container">
+            <label for="due">Due data </label>
+            <input type="date" id="due" name="due" autocomplete="false" placeholder="description">
+        </div>
+
+        <div class="input-container"><input type="submit" value="Create"></div>
+    </form>
+</div>
+
+{% endblock content %}

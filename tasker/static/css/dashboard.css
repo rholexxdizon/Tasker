@@ -16,7 +16,7 @@ a {
 }
 
 .task:hover{
-    background-color: hsl(234, 60%, 60%);
+    background-color: hsl(234, 60%, 55%);
 }
 
 #task-header {
@@ -28,16 +28,4 @@ a {
     margin-left: auto;
     display: flex;
     align-items: center;
-}
-
-.hidden {
-    display: none;
-}
-
-.animated {
-    -webkit-transition: bottom 2s ease;
-    -moz-transition: bottom 2s ease;
-    -o-transition: bottom 2s ease;
-    -ms-transition: bottom 2s ease;
-    transition: bottom 2s ease;
 }
