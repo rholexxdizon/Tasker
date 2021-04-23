@@ -1,38 +1,94 @@
 {% extends 'base.html' %}
 {% load static %}
+
+
+
 {% block title %}Task {{task}}{% endblock title %}
+
+
+
 {% block styles %}
 
 <link rel="stylesheet" href="{% static 'css/task.css' %}">
 <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+
 {% endblock styles %}
+
+
+
 {% block content %}
+
 {% include 'header.html' %}
 
 <div class="cont">
-    <form method="POST" class="cont">
+    <form action="" method="POST"> 
         {% csrf_token %}
+
+        <p style="color:red;">{{ error }}</p>
+
         <h4>
             Title: 
-            <input type="text" placeholder="{{ task.name }}" id="name" name="name" value="{{ task.name }}">
+            <input 
+                type="text" 
+                placeholder="{{ task.name }}" 
+                id="name" 
+                name="name" 
+                value="{{ task.name }}"
+            >
         </h4>
+
         <p>Created on: {{ task.created_on }}</p>
-        <p>Due on: 
-            <span id="due-label">{{ task.due_on }}</span>
-            <input type="date" name="due" id="due">
-        </p>
-        <p>
-            Description: 
-            <textarea type="text" name="desc">{{ task.description }}</textarea>
-        </p>
-        <p>Checklist:</p>
-        <div id="goal-container">
-            <input type="checkbox" name="a" id="">
-            <label for="a">goal 1</label>
-            {% comment %} insert for loop of goals here {% endcomment %}
-            <br/>
-            <input type="button" value="Add goal">
+
+        <label for="due">Due on:</label>
+        <input type="date" name="due" id="due">
+        <br>
+
+        <label for="desc">Description:</label>
+        <textarea type="text" name="desc" id="desc">{{ task.description }}</textarea>
+
+        <p>Goals:</p>
+        <div id="goals-container">
+            {% comment %} goals here {% endcomment %}
+            {% for goal in goals %}
+                <div>
+
+                    {% if goal.done %}
+                        <input
+                            type="checkbox" 
+                            onchange="goalChanged('goal-{{ goal.id }}')"
+                            checked
+                        >
+                        <input 
+                            type="hidden" 
+                            name="goal-{{ goal }}"
+                            value="goal-True-{{ goal }}"
+                            id="goal-{{ goal.id }}"
+                            class="goal"
+                        >
+                    {% else %}
+                        <input
+                            type="checkbox" 
+                            onchange="goalChanged('goal-{{ goal.id }}')"
+                        >
+                        <input 
+                            type="hidden" 
+                            name="goal-{{ goal }}"
+                            value="goal-False-{{ goal }}"
+                            id="goal-{{ goal.id }}"
+                            class="goal"
+                        >
+                    {% endif %}
+
+                    <label for="goal-{{ goal }}">
+                        {{ goal }}
+                    </label>
+                </div>
+            {% endfor %}
         </div>
+        <input type="text" name="goal" id="goal" placeholder="add new goal..." form="add-goal-frm">
+        <input type="button" value="Add goal" id="add-goal-btn">
+        <br>
+
         <input type="button" value="Revert Changes" onClick="location.reload(true);">
         <input type="button" value="Delete task">
         <input type="submit" value="Save">
@@ -40,6 +96,11 @@
 </div>
 
 {% endblock content %}
+
+
+
 {% block scripts %}
+
 <script src="{% static 'js/task.js' %}"></script>
+
 {% endblock scripts %}

@@ -27,7 +27,7 @@
 
     {% for task in tasks %}
     
-    <a href="/task/{{task}}/">
+    <a href="/task/{{task.id}}/">
         <div class="container task">
             <h4>{{ task }}</h4>
             <p>{{ task.created_on }}</p>

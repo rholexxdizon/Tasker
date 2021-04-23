@@ -8,6 +8,7 @@ from django.db.utils import IntegrityError
 def index(request):
     return render(request, 'index/index.html', {})
 
+
 def dashboard(request):
     user_id = request.user.id
     tasks = Task.objects.filter(
@@ -15,6 +16,7 @@ def dashboard(request):
     ).distinct()
 
     return render(request, 'dashboard/dashboard.html', { 'tasks': tasks })
+
 
 def new_task(request):
     context = {}
@@ -36,14 +38,67 @@ def new_task(request):
 
     return render(request, 'dashboard/new-taskform.html', {})
 
-def task(request, name):
-    task = Task.objects.get(name=name)
+
+def task(request, id):
+    task = Task.objects.get(id=id)
+
+    goals = TaskItem.objects.filter(task__in=[task])
 
     if request.method == 'POST':
+        # save task edit
         task.name = request.POST['name']
         task.description = request.POST['desc']
         task.due_on = None if request.POST['due'] == '' else request.POST['due']
         task.save()
 
-    return render(request, 'dashboard/task.html', {'task':task})
+        # save goals
+        post = request.POST
+        for k in post.keys():
+            if 'goal-' in post[k]:
+                
+                val = post[k]
 
+                try:
+                    if '-True-' in val:
+                        g_name = val.replace('goal-True-', '')
+                        g_done = True
+
+                        goal = TaskItem(name=g_name, done=g_done)
+                        goal.save()
+                        goal.task.add(task)
+
+
+                    elif '-False-' in val:
+                        g_name = val.replace('goal-False-', '')
+                        g_done = False
+
+                        goal = TaskItem(name=g_name, done=g_done)
+                        goal.save()
+                        goal.task.add(task)
+                    
+                except IntegrityError as e:
+                    
+                    print(e)
+
+                    print(val)
+
+                    if '-True-' in val:
+                        g_name = val.replace('goal-True-', '')
+                        goal = TaskItem.objects.filter(name=g_name)[0]
+                        goal.done = True
+                        goal.save()
+                        goal.task.add(task)
+
+                    elif '-False-' in val:
+                        g_name = val.replace('goal-False-', '')
+                        goal = TaskItem.objects.filter(name=g_name)[0]
+                        goal.done = False
+                        goal.save()
+                        goal.task.add(task)
+
+    context = {
+        'task':task,
+        'goals': goals,
+    }
+
+    return render(request, 'dashboard/task.html', context)
