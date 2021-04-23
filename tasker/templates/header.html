@@ -2,26 +2,22 @@
 
 <link rel="stylesheet" href="{% static 'css/header.css' %}">
 
-<div class="contain">
-    <img src="{% static 'images/logo.png' %}" alt="School Logo" width="70px" height="100px" align="left" style="margin:10px 25px">
-
-    <div class="about">
-        <div class="uni">
-        <h1 style="text-align: center; margin-right:100px" ;><strong>UNIVERSITY OF PERPETUAL HELP SYSTEM GMA</h1>
-        </strong>
-        </div>
-
-        <p style="text-align: center ; margin-right: 100px;">San Gabriel, General Mariano Alvarez (GMA), Cavite<br>
-        Contact No. (0909) 809 - 4200 • (046) 460 - 4086 • (02)<br>email: guidance@gma.uphsl.edu.ph/
-        marketing@gma.uphsl.edu.ph<br> url: www.uphsl.edu.ph
+<div id="header-container">
+    <img id="logo" src="{% static 'images/logo.png' %}" alt="School Logo" width="70px" height="100px" align="left" style="margin:10px 25px">
+    <div id="about">
+        <h1>UNIVERSITY OF PERPETUAL HELP SYSTEM GMA</h1>
+        <p>San Gabriel, General Mariano Alvarez (GMA), Cavite</p>
+        <p>Contact: (0909) 809 - 4200 / (046) 460 - 4086 • (02)</p>
+        <p>email: guidance@gma.uphsl.edu.ph / marketing@gma.uphsl.edu.ph</p>
+        <p>
+            website: 
+            <a href="http://www.uphsl.edu.ph">www.uphsl.edu.ph</a>
         </p>
-
-    </div>
     </div>
 
-    <div class="tasker"><b>Tasker</b></div>
-
-    <div class="navbar">
-    <a href="{% url 'account_logout' %}">LOG OUT</a>
-    <a href="{% url 'dashboard' %}">VIEW DASHBOARD</a>
+    <div id="navbar">
+        <a id="home-btn" href="{% url 'index' %}">TASKER</a>
+        <a href="{% url 'account_logout' %}">LOG OUT</a>
+        <a href="{% url 'dashboard' %}">DASHBOARD</a>
+    </div>
 </div>
