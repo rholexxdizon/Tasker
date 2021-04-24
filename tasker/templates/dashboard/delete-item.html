@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+
+Delete {{ goal }}
+
+{% endblock title %}
+
+{% block content %}
+
+{% include 'header.html' %}
+
+<form action="" method="post">
+
+    {% csrf_token %}
+
+    <h1>Are you sure you want to delete <em>{{ item }}</em>?</h1>
+    <input name="option" type="submit" id="cancel" value="Cancel">
+    <input style="background-color:red; color:white;" name="option" type="submit" id="delete" value="Delete">
+</form>
+
+{% endblock content %}

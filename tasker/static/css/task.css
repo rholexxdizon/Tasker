@@ -12,3 +12,13 @@ h4, input, span {
     flex-direction: row;
     align-items: center;
 }
+
+.goal-container {
+    display: flex;
+    align-items: center;
+}
+
+.goal-container > * {
+    margin: 0;
+    padding: 0.2rem 0.5rem;
+}

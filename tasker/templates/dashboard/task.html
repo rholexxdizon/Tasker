@@ -50,7 +50,7 @@
         <div id="goals-container">
             {% comment %} goals here {% endcomment %}
             {% for goal in goals %}
-                <div>
+                <div class="goal-container">
 
                     {% if goal.done %}
                         <input
@@ -82,6 +82,13 @@
                     <label for="goal-{{ goal }}">
                         {{ goal }}
                     </label>
+
+                    <a href="{% url 'delete_goal' goal.id %}">
+                        <span>
+                            {% include './delete_icon.html' %}
+                        </span>
+                    </a>
+                    
                 </div>
             {% endfor %}
         </div>
@@ -90,8 +97,8 @@
         <br>
 
         <input type="button" value="Revert Changes" onClick="location.reload(true);">
-        <input type="button" value="Delete task">
-        <input type="submit" value="Save">
+        <input style="background-color:red; color: white;" type="submit" name="option" value="Delete task">
+        <input type="submit" name="option" value="Save">
     </form>
 </div>
 
