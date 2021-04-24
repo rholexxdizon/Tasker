@@ -4,7 +4,15 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class User(AbstractUser):
-    image = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=None)
+    image = models.ImageField(
+        upload_to=None, 
+        height_field=None, 
+        width_field=None, 
+        max_length=None,
+        null=True,
+        default=None,
+        blank=True
+    )
 
 
 class Department(models.Model):
