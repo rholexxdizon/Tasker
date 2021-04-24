@@ -21,12 +21,14 @@ def dashboard(request):
 
 
 def account_settings(request):
-    form = UserForm()
+    form = UserForm(instance=request.user)
 
     if request.method == 'POST':
-        form = UserForm(request.POST)
+        form = UserForm(request.POST or None, request.FILES or None, instance=request.user)
         if form.is_valid():
             form.save()
+        else:
+            print(form.errors)
 
     return render(request, 'account/account-settings.html', {'form': form})
 
