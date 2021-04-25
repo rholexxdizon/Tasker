@@ -60,3 +60,16 @@
     outline: none;
     background-color: #e8c766;
 }
+
+#errors-container {
+    color: red;
+    font-size: 16px;
+}
+
+#user-img {
+    max-width: 6rem;
+    border-radius: 50%;
+    border: #162f65;
+    border-style: solid;
+    margin-top: 0.5rem;
+}

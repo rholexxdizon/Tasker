@@ -22,15 +22,19 @@ def dashboard(request):
 
 def account_settings(request):
     form = UserForm(instance=request.user)
+    errors = None
 
     if request.method == 'POST':
         form = UserForm(request.POST or None, request.FILES or None, instance=request.user)
         if form.is_valid():
             form.save()
         else:
-            print(form.errors)
+            errors = form.errors
 
-    return render(request, 'account/account-settings.html', {'form': form})
+    return render(request, 'account/account-settings.html', {
+        'form': form,
+        'errors': errors
+    })
 
 
 def new_task(request):

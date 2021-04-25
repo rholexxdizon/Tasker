@@ -7,10 +7,10 @@ class UserForm(ModelForm):
         model = User
         widgets = {
 
-            'image': FileInput(attrs={
-                'accept': 'image/jpeg, image/jpg',
-                'placeholder': model.image,
-            }),
+            # 'image': FileInput(attrs={
+            #     'accept': 'image/jpeg, image/jpg',
+            #     'placeholder': model.image,
+            # }),
 
             'first_name': TextInput(attrs={
                 'placeholder': model.first_name,

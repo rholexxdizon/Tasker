@@ -13,12 +13,21 @@
 
 <h1>Account Settings</h1>
 
-<form action="" method="post" id="user-settings-form">
+<form action="" method="post" id="user-settings-form" enctype='multipart/form-data'>
     {% csrf_token %}
+
+    {% if errors %}
+        <div id="errors-container">{{ errors }}</div>
+    {% endif %}
+
     {% for field in form %}
         <div class="field-container">
             <label>{{ field.label }}:</label>
             {{ field }}
+
+            {% if field.label == 'Image' %}
+                <img src="{{ user.image.url }}" alt="User Image" id="user-img">
+            {% endif %}
         </div>
     {% endfor %}
     <input type="submit" value="Save" id="submit-btn">
