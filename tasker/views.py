@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.db.utils import IntegrityError
 
+from allauth.account.decorators import login_required
+
 from .models import *
 from .forms import UserForm
 
@@ -11,6 +13,7 @@ def index(request):
     return render(request, 'index/index.html', {})
 
 
+@login_required
 def dashboard(request):
     user_id = request.user.id
     tasks = Task.objects.filter(
@@ -20,6 +23,7 @@ def dashboard(request):
     return render(request, 'dashboard/dashboard.html', { 'tasks': tasks })
 
 
+@login_required
 def account_settings(request):
     form = UserForm(instance=request.user)
     errors = None
@@ -37,6 +41,7 @@ def account_settings(request):
     })
 
 
+@login_required
 def new_task(request):
     context = {}
     if request.method == 'POST':
@@ -58,6 +63,7 @@ def new_task(request):
     return render(request, 'dashboard/new-taskform.html', {})
 
 
+@login_required
 def task(request, id):
     task = Task.objects.get(id=id)
 
@@ -132,6 +138,7 @@ def task(request, id):
     return render(request, 'dashboard/task.html', context)
 
 
+@login_required
 def delete_task(request, id):
     tsk = Task.objects.get(id=id)
 
@@ -150,6 +157,7 @@ def delete_task(request, id):
     return render(request, 'dashboard/delete-item.html', {'item': tsk})
 
 
+@login_required
 def delete_goal(request, id):
     goal = TaskItem.objects.get(id=id)
     g_task = goal.task.all()[0]
