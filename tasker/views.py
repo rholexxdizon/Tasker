@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
-from django.db.models import Q
+from django.db.models import Q, QuerySet
 from django.db.utils import IntegrityError
 
 from allauth.account.decorators import login_required
 
 from .models import *
 from .forms import UserForm
+from .decorators import user_permission_test
+from .test_functions import *
 
 
 # Create your views here.def index(request):
@@ -16,11 +18,13 @@ def index(request):
 @login_required
 def dashboard(request):
     user_id = request.user.id
-    tasks = Task.objects.filter(
-        Q(department__head__in=[user_id]) | Q(department__members__in=[user_id])
-    ).distinct()
-
-    return render(request, 'dashboard/dashboard.html', { 'tasks': tasks })
+    user_departments = Department.objects.filter(members__in=[user_id])
+    tasks = Task.objects.filter(department__in=user_departments)
+    context = {
+        'tasks': tasks,
+        'departments': user_departments,
+    }
+    return render(request, 'dashboard/dashboard.html', context)
 
 
 @login_required
@@ -42,18 +46,18 @@ def account_settings(request):
 
 
 @login_required
-def new_task(request):
+@user_permission_test(can_create_task)
+def new_task(request, dept_id):
     context = {}
     if request.method == 'POST':
         try:
             name = request.POST['name']
             desc = request.POST['desc']
             due_date = None if request.POST['due'] == '' else request.POST['due']
-            dept = Department.objects.filter(members__in=[request.user.id])
-
+            dept = Department.objects.get(id=dept_id)
             task = Task(name=name, description=desc, due_on=due_date)
             task.save()
-            task.department.add(dept[0])
+            task.department.add(dept)
 
             return redirect(dashboard)
 
@@ -68,6 +72,10 @@ def task(request, id):
     task = Task.objects.get(id=id)
 
     goals = TaskItem.objects.filter(task__in=[task])
+
+    # check if user if permitted to view task
+    if not can_view_task(request.user, id):
+        return render(request, 'access-denied.html', {})
 
     if request.method == 'POST':
 
