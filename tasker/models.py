@@ -5,12 +5,14 @@ from django.contrib.auth.models import AbstractUser
 from PIL import Image
 from io import BytesIO
 
+
 # Create your models here.
 class User(AbstractUser):
     image = models.ImageField(null=True, default=None, blank=True)
 
     def save(self, *args, **kwargs):
         self._process_img()
+        
         super().save(*args, **kwargs)
 
     def _make_square(self, img):
@@ -38,7 +40,7 @@ class Department(models.Model):
     name = models.CharField(max_length=255, unique=True)
     description = models.CharField(max_length=255, null=True, blank=True)
     members = models.ManyToManyField(User, related_name='head')
-    head = models.OneToOneField(User, on_delete=models.CASCADE)
+    head = models.ManyToManyField(User)
 
     def __str__(self):
         return self.name
