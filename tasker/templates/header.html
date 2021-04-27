@@ -1,24 +1,31 @@
 {% load static %}
-
 <link rel="stylesheet" href="{% static 'css/header.css' %}">
 
-<div id="header-container">
-    <div id="about">
-        <img id="logo" src="{% static 'images/logo.png' %}" alt="School Logo" width="70px" height="100px" align="left" style="margin:10px 25px">
-        <h1>UNIVERSITY OF PERPETUAL HELP SYSTEM GMA</h1>
-        <p>San Gabriel, General Mariano Alvarez (GMA), Cavite</p>
-        <p>Contact: (0909) 809 - 4200 / (046) 460 - 4086 • (02)</p>
-        <p>email: guidance@gma.uphsl.edu.ph / marketing@gma.uphsl.edu.ph</p>
-        <p>
-            website: 
-            <a href="http://www.uphsl.edu.ph">www.uphsl.edu.ph</a>
-        </p>
+<div class="row bg-primary p-2">
+    <div class="col-2 mx-auto">
+        <img class="img-fluid m-auto d-block" id="" src="{% static 'images/logo.png' %}" alt="School Logo">
     </div>
+    <div class="col text-center">
+        <div class="container text-light m-auto d-md-none text-center">
+            <h4>UPHS</h4>
+        </div>
+        <div class="container mx-auto text-light d-none d-md-block">
+            <h3>UNIVERSITY OF PERPETUAL HELP SYSTEM GMA</h3>
+            <p>
+                San Gabriel, General Mariano Alvarez (GMA), Cavite <br>
+                Contact: (0909) 809 - 4200 / (046) 460 - 4086 • (02) <br>
+                email: guidance@gma.uphsl.edu.ph / marketing@gma.uphsl.edu.ph <br>
+                website: <a class="badge" href="http://www.uphsl.edu.ph">www.uphsl.edu.ph</a>
+            </p>
+        </div>
+    </div>
+    <div class="col-2 mx-auto"><!-- spacer --></div>
 
-    <div id="navbar">
-        <a id="home-btn" href="{% url 'index' %}">TASKER</a>
-        <a href="{% url 'account_logout' %}">LOG OUT</a>
-        <a href="{% url 'dashboard' %}">DASHBOARD</a>
-        <a href="{% url 'account_settings' %}">ACCOUNT SETTINGS</a>
-    </div>
+</div>
+
+<div class="row bg-secondary text-center container-fluid m-0" id="navbar">
+    <button onclick="window.location.href='{% url 'index' %}'" class="col btn btn-secondary align-middle">TASKER</button>
+    <button onclick="window.location.href='{% url 'account_logout' %}'" class="col btn btn-secondary align-middle">LOG OUT</button>
+    <button onclick="window.location.href='{% url 'dashboard' %}'" class="col btn btn-secondary align-middle">DASHBOARD</button>
+    <button onclick="window.location.href='{% url 'account_settings' %}'" class="col btn btn-secondary align-middle">ACCOUNT SETTINGS</button>
 </div>

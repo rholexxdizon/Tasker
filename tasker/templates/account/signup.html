@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% load static %}
+
+{% block title %}Tasker | Sign Up{% endblock title %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock styles %}
+
+{% block content %}
+
+{% include 'header.html' %}
+
+<div class="container card p-4 my-5 form-container">
+  {% include 'account/base.html' %}
+  <h1>{% trans "Sign Up" %}</h1>
+  
+  <p class="alert alert-info">
+    {% blocktrans %}Already have an account? Then please 
+    <a class="alert-link" href="{{ login_url }}">sign in</a>.{% endblocktrans %}
+  </p>
+  
+  <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+    <button class="btn btn-secondary text-dark rounded" type="submit">{% trans "Sign Up" %} &raquo;</button>
+  </form>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+  <script>
+    // hide navbar
+    $('#navbar').hide();
+
+    /*
+      added these bootstrap classes via jquery because it is not visible in 
+      template only on final html output.
+    */
+    $('input[type="text"], input[type="password"], input[type="email"]').addClass('form-control');
+    $('input[type="checkbox"]').addClass('form-check-label');
+    $('label').addClass('form-label');
+    $('.errorlist').addClass('alert alert-danger pl-1');
+  </script>
+
+{% endblock scripts %}
