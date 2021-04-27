@@ -70,12 +70,17 @@ def new_task(request, dept_id):
 @login_required
 def task(request, id):
     task = Task.objects.get(id=id)
-
     goals = TaskItem.objects.filter(task__in=[task])
 
     # check if user if permitted to view task
     if not can_view_task(request.user, id):
         return render(request, 'access-denied.html', {})
+    
+    # check if user is admin
+    is_admin = False
+    departments = task.department.all()
+    for depts in departments:
+        is_admin = True if request.user in depts.members.all() else False
 
     if request.method == 'POST':
 
@@ -141,6 +146,7 @@ def task(request, id):
     context = {
         'task':task,
         'goals': goals,
+        'is_admin': is_admin,
     }
 
     return render(request, 'dashboard/task.html', context)
