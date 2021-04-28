@@ -1,0 +1,77 @@
+<!-- Submitions for tasks -->
+{% if submitions %}
+    {% for submition in submitions %}
+        <div class="container-fluid">
+            <div class="card rounded p-3 mx-auto">
+                {% if submition.approved %}
+                    <p class="alert alert-success">Approved</p>
+                {% endif %}
+                <form class="card-body">
+                    <div class="row">
+                        <img class="profile-pic col-1 rounded-circle" src="{{ user.image.url }}">
+                        <div class="col p-3">
+                            {% if user.last_name and user.first_name %}
+                                <h5 class="card-title">{{ user.first_name }} {{ user.last_name }}</h5>
+                            {% else %}
+                                <h5 class="card-title">{{ user }}</h5>
+                            {% endif %}
+                            <p class="card-text text-muted">{{ submition.pub_date }}</p>
+                        </div>
+                    </div>
+                    <hr/>
+                    <h5 class="card-title">{{ submition }}</h5>
+                    <p class="card-text">{{ submition.description }}</p>
+                    <ul>
+                        <li>file 1</li>
+                        <li>file 2</li>
+                        <li>file 3</li>
+                    </ul>
+                    {% if not submition.approved %}
+                        {% if user.is_superuser %}
+                            <a href="#" class="col mx-2 btn rounded btn-danger">Deny</a>
+                            <a href="#" class="col mx-2 btn rounded btn-primary">Approve</a>
+                        {% endif %}
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div class="container-fluid m-3">
+    <a 
+        class="btn btn-primary rounded"
+        href="{% url 'create_submition' task.id %}"
+    >
+        Create Submition Request
+    </a>
+</div>
+
+    {% comment %} <!-- container for submitions -->
+    <div class="card rounded p-3 mx-auto">
+        <form class="card-body">
+            <div class="row">
+                <img class="profile-pic col-1 rounded-circle" src="https://randomuser.me/api/portraits/men/53.jpg" alt="User Profile Pic">
+                <div class="col p-3">
+                    <h5 class="card-title">John Doe</h5>
+                    <p class="card-text text-muted">Mar 12 1998</p>
+                </div>
+            </div>
+            <hr/>
+            <h5 class="card-title">Submmision title</h5>
+            <p class="card-text">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Praesentium tenetur consectetur optio ea dignissimos
+                doloremque qui fugiat libero sapiente quis!
+            </p>
+            <ul>
+                <li>file 1</li>
+                <li>file 2</li>
+                <li>file 3</li>
+            </ul>
+            {% if user.is_superuser %}
+                <a href="#" class="col mx-2 btn rounded btn-danger">Deny</a>
+                <a href="#" class="col mx-2 btn rounded btn-primary">Approve</a>
+            {% endif %}
+        </div>
+    </div> {% endcomment %}

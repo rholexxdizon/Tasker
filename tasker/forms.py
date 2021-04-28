@@ -1,16 +1,11 @@
 from django.forms import *
-from .models import User
+from .models import *
 
 
 class UserForm(ModelForm):
     class Meta:
         model = User
         widgets = {
-
-            # 'image': FileInput(attrs={
-            #     'accept': 'image/jpeg, image/jpg',
-            #     'placeholder': model.image,
-            # }),
 
             'first_name': TextInput(attrs={
                 'placeholder': model.first_name,
@@ -35,4 +30,13 @@ class UserForm(ModelForm):
             'last_name',
             'username',
             'email'
+        ]
+
+
+class SubmitionForm(ModelForm):
+    class Meta:
+        model = Submition
+        fields = [
+            'title',
+            'description',
         ]

@@ -2,3 +2,7 @@
     max-width: 30rem;
     min-width: auto;
 }
+
+body {
+    height: 80vh;
+}

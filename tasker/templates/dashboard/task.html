@@ -10,7 +10,6 @@
 {% block styles %}
 
 <link rel="stylesheet" href="{% static 'css/task.css' %}">
-<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 
 {% endblock styles %}
 
@@ -34,17 +33,36 @@
                 id="name" 
                 name="name" 
                 value="{{ task.name }}"
+                {% if not is_admin %}
+                    disabled
+                {% endif %}
             >
         </h4>
 
         <p>Created on: {{ task.created_on }}</p>
 
         <label for="due">Due on:</label>
-        <input type="date" name="due" id="due">
+        <input 
+            type="date" 
+            name="due" 
+            id="due"
+            {% if not is_admin %}
+                disabled
+            {% endif %}
+        >
         <br>
 
         <label for="desc">Description:</label>
-        <textarea type="text" name="desc" id="desc">{{ task.description }}</textarea>
+        <textarea 
+            type="text" 
+            name="desc" 
+            id="desc"
+            {% if not is_admin %}
+                disabled
+            {% endif %}
+        >
+            {{ task.description }}
+        </textarea>
 
         <p>Goals:</p>
         <div id="goals-container">
@@ -83,11 +101,13 @@
                         {{ goal }}
                     </label>
 
-                    <a href="{% url 'delete_goal' goal.id %}">
-                        <span>
-                            {% include './delete_icon.html' %}
-                        </span>
-                    </a>
+                    {% if is_admin %}
+                        <a href="{% url 'delete_goal' goal.id %}">
+                            <span>
+                                {% include './delete_icon.html' %}
+                            </span>
+                        </a>
+                    {% endif %}
                     
                 </div>
             {% endfor %}
@@ -100,6 +120,12 @@
         <input style="background-color:red; color: white;" type="submit" name="option" value="Delete task">
         <input type="submit" name="option" value="Save">
     </form>
+
+    <hr/>
+
+    <!-- Submitions for tasks -->
+    {% include 'dashboard/submitions.html' %}
+
 </div>
 
 {% endblock content %}
@@ -108,6 +134,7 @@
 
 {% block scripts %}
 
+<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 <script src="{% static 'js/task.js' %}"></script>
 
 {% endblock scripts %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Create Submition{% endblock title %}
+
+{% block styles %}
+
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+
+{% endblock styles %}
+
+{% block content %}
+
+{% include 'header.html' %}
+
+
+<div class="container card p-4 my-5 form-container rounded">
+    <div class="card-body">
+        <h5 class="card-title mb-4">Create a Submition</h5>
+        <form action="" method="post">
+            {% csrf_token %}
+            {% if errors %}
+                {{ errors }}
+            {% endif %}
+        
+            <p>
+               {{ form.title.errors }}
+               {{ form.title.label }}
+               {{ form.title }}
+               {{ form.description.errors }}
+               {{ form.description.label }}
+               {{ form.description }}
+            </p>
+            <button
+                class="btn btn-secondary rounded"
+                class="primaryAction"
+                type="submit"
+            >
+                Create
+            </button>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+
+<script>
+    /*
+      added these bootstrap classes via jquery because it is not visible in 
+      template only on final html output.
+    */
+    $('input[type="text"], input[type="password"]').addClass('form-control');
+    $('input[type="checkbox"]').addClass('form-check-label');
+    $('label').addClass('form-label');
+    $('.errorlist').addClass('alert alert-danger pl-1');
+</script>
+
+{% endblock scripts %}

@@ -2,8 +2,8 @@
 <link rel="stylesheet" href="{% static 'css/header.css' %}">
 
 <div class="row bg-primary p-2">
-    <div class="col-2 mx-auto">
-        <img class="img-fluid m-auto d-block" id="" src="{% static 'images/logo.png' %}" alt="School Logo">
+    <div class="col-2 d-flex align-items-center mx-auto p-0">
+        <img id="logo" class="d-block" id="" src="{% static 'images/logo.png' %}" alt="School Logo">
     </div>
     <div class="col text-center">
         <div class="container text-light m-auto d-md-none text-center">
@@ -23,7 +23,7 @@
 
 </div>
 
-<div class="row bg-secondary text-center container-fluid m-0" id="navbar">
+<div class="row bg-secondary text-center" id="navbar">
     <button onclick="window.location.href='{% url 'index' %}'" class="col btn btn-secondary align-middle">TASKER</button>
     <button onclick="window.location.href='{% url 'account_logout' %}'" class="col btn btn-secondary align-middle">LOG OUT</button>
     <button onclick="window.location.href='{% url 'dashboard' %}'" class="col btn btn-secondary align-middle">DASHBOARD</button>

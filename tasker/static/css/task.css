@@ -22,3 +22,8 @@ h4, input, span {
     margin: 0;
     padding: 0.2rem 0.5rem;
 }
+
+.profile-pic {
+    height: 5rem;
+    width: auto;
+}

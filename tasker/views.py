@@ -5,7 +5,7 @@ from django.db.utils import IntegrityError
 from allauth.account.decorators import login_required
 
 from .models import *
-from .forms import UserForm
+from .forms import *
 from .decorators import user_permission_test
 from .test_functions import *
 
@@ -143,10 +143,13 @@ def task(request, id):
                         goal.save()
                         goal.task.add(task)
 
+    submitions = Submition.objects.filter(task=task)
+
     context = {
         'task':task,
         'goals': goals,
         'is_admin': is_admin,
+        'submitions': submitions,
     }
 
     return render(request, 'dashboard/task.html', context)
@@ -188,3 +191,35 @@ def delete_goal(request, id):
             return redirect(task, g_task.id)
 
     return render(request, 'dashboard/delete-item.html', {'item': goal})
+
+
+@login_required
+def add_files(request, submition_id):
+    pass
+
+
+@login_required
+def create_submition(request, task_id):
+    form = SubmitionForm()
+    errors = None
+
+    if request.method == 'POST':
+        form = SubmitionForm(request.POST or None)
+
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.task = Task.objects.get(id=task_id)
+            obj.save()
+
+            return redirect(task, task_id)
+
+        else:
+            errors = form.errors
+
+    context = {
+        'errors': errors,
+        'form': form,
+    }
+
+    return render(request, 'dashboard/create-submition.html', context)
