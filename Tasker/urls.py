@@ -1,13 +1,13 @@
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 
-from django.conf.urls.static import static
-from django.conf import settings
+from .views import *
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('accounts/', include('allauth.urls')),
-    path('', include('tasker.urls')),
+    path('', index, name='index'),
+    path('dashboard/', dashboard, name='dashboard'),
+    path('account-settings/', account_settings, name='account_settings'),
+    path('new_task/<int:dept_id>', new_task, name='new_task'),
+    path('task/<int:id>/', task, name='task'),
+    path('delete-goal/<int:id>', delete_goal, name='delete_goal'),
+    path('delete-task/<int:id>', delete_task, name='delete_task'),
 ]
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
